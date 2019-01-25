@@ -34,10 +34,6 @@ const toBlog = [
   'mentions-legales',
 ];
 
-addEventListener('fetch', event => {
-  event.respondWith(handleRequest(event.request))
-})
-
 const HOSTS = {
   app: 'storage.googleapis.com/shop.nelio.io',
 };
@@ -60,11 +56,11 @@ async function handleRequest(request) {
   const originHost = request.url.split('/')[2];
 
 
-  if(originHost === 'shop.nelio.io') {
+  if (originHost === 'shop.nelio.io') {
     // shop nelio is now www
     return Response.redirect(
       `https://www.nelio.io/${request.url.split('/').splice(3).join('/')}`,
-      301
+      301,
     );
   }
 
@@ -72,7 +68,7 @@ async function handleRequest(request) {
     // old blog article in www.nelio.io/pitaya is now www.nelio.io/blog/pitaya
     return Response.redirect(
       `https://${originHost}/blog/${request.url.split('/').splice(3).join('/')}`,
-      301
+      301,
     );
   }
 
@@ -82,8 +78,9 @@ async function handleRequest(request) {
       {
         ...request,
         headers: { ...request.headers, Host: 'www.nelio.io' },
-      }))
-  };
+      },
+    ));
+  }
 
   const next = request.url.split('/').splice(3).join('/') || 'index.html';
   const response = await fetch(
@@ -96,3 +93,7 @@ async function handleRequest(request) {
   }
   return res;
 }
+
+addEventListener('fetch', (event) => {
+  event.respondWith(handleRequest(event.request));
+});
