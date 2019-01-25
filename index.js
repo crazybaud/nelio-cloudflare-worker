@@ -8,7 +8,7 @@ const toRedirectToBlog = [
   'la-fabrique-givree',
   'vivre-damour-et-deau-fraiche-cest-bien-vivre-damour-et-de-bonne-bouffe-cest-mieux',
   'la-tomme-aux-fleurs',
-  'la-ptite-epicerie=',
+  'la-ptite-epicerie',
   'dans-la-famille-brie-le-brisilic',
   'pitaya',
   'le-kitchen-cafe',
