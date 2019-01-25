@@ -15,12 +15,13 @@ const toRedirectToBlog = [
   'chef-bosviel-de-linstitut-restaurant-ecole-paul-bocuse',
   'jean-luc-vianey',
   'la-creme-de-la-cremerie-lyonnaise',
-  'le-gnocchi-fourre-burrata/',
+  'le-gnocchi-fourre-burrata',
   'boucheriebello',
   'didier-lassagne',
 ];
 
 const toBlog = [
+  'wp-admin',
   'wp-content',
   'wp-json',
   'category',
