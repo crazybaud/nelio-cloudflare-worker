@@ -59,7 +59,17 @@ const isBlog = (request) => {
 async function handleRequest(request) {
   const originHost = request.url.split('/')[2];
 
+
+  if(originHost === 'shop.nelio.io') {
+    // shop nelio is now www
+    return Response.redirect(
+      `https://www.nelio.io/${request.url.split('/').splice(3).join('/')}`,
+      301
+    );
+  }
+
   if (toRedirectToBlog.find(isBlogArticle(request))) {
+    // old blog article in www.nelio.io/pitaya is now www.nelio.io/blog/pitaya
     return Response.redirect(
       `https://${originHost}/blog/${request.url.split('/').splice(3).join('/')}`,
       301
