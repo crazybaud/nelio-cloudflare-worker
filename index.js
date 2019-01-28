@@ -33,6 +33,7 @@ const toBlog = [
   'blog',
   'contact',
   'mentions-legales',
+  'wp-login.php',
 ];
 
 const HOSTS = {
@@ -50,7 +51,7 @@ const isBlogArticle = (request) => {
 
 const isBlog = (request) => {
   const requestArticle = request.url.split('/')[3];
-  return url => requestArticle === url;
+  return url => requestArticle.indexOf(url) === 0;
 };
 
 async function handleRequest(request) {
@@ -76,10 +77,7 @@ async function handleRequest(request) {
   if (toBlog.find(isBlog(request))) {
     return fetch(new Request(
       `https://${originHost}/${request.url.split('/').splice(3).join('/')}`,
-      {
-        ...request,
-        headers: { ...request.headers, Host: 'www.nelio.io' },
-      },
+      request,
     ));
   }
 
@@ -90,7 +88,9 @@ async function handleRequest(request) {
 
   const res = response.clone();
   if (res.status === 404) {
-    return new Response(response.body, { status: 200, statusText: 'OK', headers: response.headers });
+    return fetch(
+      `https://${HOSTS.app}/index.html`,
+    );
   }
   return res;
 }
